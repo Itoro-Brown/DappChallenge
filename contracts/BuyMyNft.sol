@@ -44,7 +44,17 @@ contract BuyMyNft {
         emit NewMemo(msg.sender, block.timestamp, _name, _message);
     }
 
-    //Send the entire balance of this contract to the owner
+    function BuyNowLarge(string memory _name, string memory _message)
+        public
+        payable
+    {
+        require(msg.value >= 3, "Not enough Money to Purchase Nft!!!");
+
+        memos.push(Memo(msg.sender, block.timestamp, _name, _message));
+        //This would emit a logged event when a new memo is created.
+        emit NewMemo(msg.sender, block.timestamp, _name, _message);
+    }
+
     function FundsWithdrawal() public {
         require(owner.send(address(this).balance));
     }
